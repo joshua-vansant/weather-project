@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 15px;
+        }
+        .btn-custom {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Weather App</h1>
+        <form action="" method="GET" id="weatherForm">
+            <div class="form-group">
+                <input type="text" name="city" class="form-control" placeholder="Enter city name" required>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary btn-custom" onclick="submitForm('current')">Get Current Weather</button>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-secondary btn-custom" onclick="submitForm('forecast')">Get Forecast</button>
+            </div>
+        </form>
+
+        {% if error %}
+            <p class="error-message">{{ error }}</p>
+        {% endif %}
+    </div>
+    
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function submitForm(type) {
+            const cityInput = document.querySelector('input[name="city"]');
+            const city = cityInput.value;
+            const action = type === 'current' ? '{{ url_for("weather") }}' : '{{ url_for("forecast") }}';
+            window.location.href = action + '?city=' + encodeURIComponent(city);
+        }
+    </script>
+</body>
+</html>

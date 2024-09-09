@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5-Day Forecast for {{ weather.city }}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">3-Day Forecast for {{ weather.city }}, {{ weather.region }}</h1>
+        
+        <div class="row">
+            {% for day in weather.forecast %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title text-center">{{ day.date }}</h5>
+                        </div>
+                        <div class="card-body text-center">
+                            <img src="{{ day.day.condition.icon }}" alt="Weather icon" class="img-fluid" style="width: 80px;">
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <p class="card-text font-weight-bold mb-0">Max Temperature</p>
+                                    <p class="card-text"> {{ day.day.maxtemp_f }}°F</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="card-text font-weight-bold mb-0">Min Temperature</p>
+                                    <p class="card-text"> {{ day.day.mintemp_f }}°F</p>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <p class="card-text font-weight-bold mb-0">Humidity</p>
+                                    <p class="card-text">{{ day.day.avghumidity }}%</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="card-text font-weight-bold mb-0">Wind</p>
+                                    <p class="card-text">{{ day.day.maxwind_mph }} MpH</p>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <p class="card-text font-weight-bold mb-0">UV Index</p>
+                                    <p class="card-text">{{ day.day.uv }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="card-text font-weight-bold mb-0">Description</p>
+                                    <p class="card-text">{{ day.day.condition.text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    
+        <div class="text-center mt-4">
+            <a href="{{ url_for('index') }}" class="btn btn-primary">Search for another city</a>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+</body>
+</html>
